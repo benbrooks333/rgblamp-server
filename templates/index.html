@@ -1,0 +1,107 @@
+
+<html>
+  <head>
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="./static/plugin.css" rel="stylesheet" type="text/css">
+    <link href="./static/timeline.css" rel="stylesheet" type="text/css">
+
+    <script src="/static/jquery-3.4.1.min.js"></script>
+    <script src="/static/poster.js"></script>
+    <script src="/static/picker.js"></script>
+    <script src="/static/getViewportSize.js"></script>
+    <script src="/static/redraw.js"></script>
+    <script src="/static/timeline.js"></script>
+    <script src="/static/helperfunctions.js"></script>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+
+    <script>
+    window.addEventListener('resize', () => {redraw();});
+    window.addEventListener('load', () => {redraw();});
+
+    </script>
+
+  </head>
+
+  <body>
+    <!-- This div allows mobile users to enter fullscreen by scrolling down (swiping up) -->
+    <div id="scrollbox" style="position:relative; width:1px; height:50px;bottom:-100%; z-index:1000;"></div>
+    <!--<div id="debugbox" style="display:none; position:fixed; width:300px; height:300px; top:40%; left:40%; background:blue;"></div>-->
+<!--
+      <div id="rgbcontainer">
+        <input type="text" id="cmdbox">
+        <button id="stop_button" onclick="stop()">Stop</button>
+        <button id="cmd_button" onclick="send_command()">Submit</button>
+      </div>
+
+      <div id="command_output">
+      </div>
+-->
+<!--Color picker section-->
+
+        <div id="mini" onmousedown="Picker.core('mini',event); return false;" onselectstart="return false;">
+          <div id="RGB">R:0 G:0 B:0</div>
+            <!--<div onmousedown="get_style('mini').display='none';">X</div>-->
+          <div id="circle_container" style="height: 100%; width: 100%;" onmousedown="Picker.core('cursor', event)" ontouchstart="Picker.core('cursor', event.changedTouches[0])">
+            <div id="cursor" style="top: 89px; left: 69px; z-index: 13;"></div>
+            <img id="color_circle" src="./images/circle.png" onmousedown="return false;" ondrag="return false;" onselectstart="return false;">
+            <!--<img src="./images/resize.gif" id="resize" onmousedown="Picker.core('resize',event); return false;" ondrag="return false;" onselectstart="return false;" style="z-index: 12;">-->
+          </div>
+          <div id="show_color">
+
+          </div>
+        </div>
+
+      <div id="timeline_container">
+
+        <div id="controls">
+          <button id="add_button" onclick="add(2)">+</button>
+          <button id="remove_button" onclick="remove(2)">-</button>
+          <button id="go" onclick="go()">Go!</button>
+
+          <div id="repeat" onclick="toggle_repeat()">
+            <img src="./images/repeat.png" style="width:100%; height:100%">
+            <span id="norepeat" style="display:none; border:solid black; border-width:0 0 0 5; height:100%; transform:rotate(-45deg)"></span>
+          </div>
+        </div>
+
+        <div id="timeline"></div>
+
+        <div id="transition_popup" style="/*display:none;*/" onmouseout="//this.style.display='none'">
+
+          <div id="transition_time_container" class="popup_container">
+            <span> Transition time: </span><span id="transition_time">5s</span>
+            <br><span>200 ms</span> <span style="float:right;">1 hour</span>
+            <!-- Using a log-map, 1000 points between 0.2s and i hour
+                 329 corresponds to ~5 seconds as a default-->
+            <input type="range" min="1" max="1000" value="329" class="main_slider" id="main_slider" oninput="update_time(this)">
+            <input type="range" min="-50" max="50" value="0" class="sub_slider" id="sub_slider" oninput="update_time(this)">
+          </div>
+
+          <div id="transition_type_container" class="popup_container">
+            <span>Color change type:</span>
+            <select onchange="update_transition()">
+              <option value="Linear">Linear</option>
+              <option value="Abrupt">Abrupt</option>
+              <option value="Bezier">Bezier</option>
+            </select>
+
+            <br><span id="color 1">Color 1</span>
+
+            <!--<div id="curve_container"></div>-->
+            <canvas id="curve_container"></canvas>
+
+            <span id="color 2" style="float:right;">Color 2</span><br><br>
+            <div id="curve_gradient" style="width: 90%; height: 20px; padding: 0; margin: 0 5%;">
+              <div class="gradient_piece" style="background-image: linear-gradient(to right, blue, red);"></div>
+            </div>
+            <div class="control_point" id="control_point1" onclick="bezier(this, event)" style="left:106; top:167;"></div>
+            <div class="control_point" id="control_point2" onclick="bezier(this, event)" style="left:168; top:200;"></div>
+          </div><!-- CORNERS: 44, 134; 231, 233 // Size =  187, 99-->
+
+        </div>
+      </div>
+
+  </body>
+</html>

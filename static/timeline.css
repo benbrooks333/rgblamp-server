@@ -1,0 +1,112 @@
+/* TIMELINE */
+span {color: #444}
+#timeline {
+  position: absolute; background: #eee;
+  white-space: nowrap; display: flex; flex-flow: row nowrap;
+}
+#timeline_container {
+  position: fixed; bottom: 0px; right: 0px; z-index: 100;
+}
+#timeline div { /* All transition and color_marker elements */
+  display: inline-block; position: relative;
+  /*border: 5px solid #dddddd80;*/
+  padding: 5px;
+}
+#timeline div:hover {
+  filter: brightness(200%);
+}
+.color_marker {
+  /*width: 30px; height: 20px;*/
+  flex: 0 1 30px;
+  background: #000;
+  float: none;
+  min-width: 30px; min-height: 30px;
+}
+.transition {
+  min-width: 30px; min-height: 30px;
+  flex: 0 2 200px;
+}
+
+#repeat {background-color: #0d0; border-radius: 35px;}
+#repeat:hover {filter: brightness(200%);}
+#repeat img {position:absolute; top:0; left:0; height: 100%; width: 100%;}
+
+#transition_popup {
+  position: absolute; z-index: 110;
+  width: 300px; height: 300px;
+  background: #eeeeeecc;
+  border-radius: 20px; border: 3px solid #88888850;
+}
+.popup_container {
+  float: left;
+  padding: 15px 20px 0 20px;
+  width: 100%;
+  text-align: left;
+}
+#curve_container {
+  width: 200px;
+  height: 100px;
+  background: white;
+  margin: 0 calc(50% - 100px);
+  border-left: 5px solid blue;
+  border-right: 5px solid red;
+}
+.control_point {
+  border-radius: 50%; border: 10px solid #4CAF50bb;
+  position: absolute;
+}
+.gradient_piece {
+  height: 100%;
+  width: auto;
+}
+input[type=range]{ /* For sliders */
+  appearance: none; -webkit-appearance: none;
+  height: 25px;
+  opacity: 0.8;
+  overflow: hidden;
+  border-left: 2px;
+  border-right: 2px;
+}
+input[type=range]:hover{opacity: 1;}
+.main_slider {
+  width: 80%;
+  margin: 0 10%;
+  background: #ddd;
+}
+.sub_slider {
+  width: 20%;
+  position: relative; left: 65px;
+  background: transparent;
+}
+input[type=range]::-webkit-slider-thumb { /* For the slider buttons */
+  -webkit-appearance: none; appearance: none;
+  width: 5px; height: 50px; top: 13px;
+  position: relative;
+  background: #4CAF50;
+  border-radius: 50%;
+}
+input[type=range]::-moz-range-thumb {-webkit-appearance: none; appearance: none; width: 5px; height: 50px; top: 13px; position: relative; background: #4CAF50; border-radius: 50%;}
+
+@media screen and (orientation: landscape) {
+  #timeline {height: 85%; width: 100%; overflow-y: scroll; bottom: 0; flex-direction: column;}
+  .color_marker {border-radius: 15px 15px 0 0}
+  .transition {border-radius: 0 0 15px 15px }
+  #controls * {position: absolute; width: 50%;}/* Add/remove buttons, toggle_repeat and 'go' */
+  #add_button {height: 9%; left: 0; top: 6%;}
+  #go {height: 9%; right:0; top: 6%;}
+  #remove_button {height: 6%; left: 0; top: 0;}
+  #repeat {height: 6%; right: 0; top: 0;}
+  #transition_popup {left: -310px;}
+}
+
+@media screen and (orientation: portrait) {
+  #timeline {height: 100%; width: 85%; overflow-x: scroll; flex-direction: row;}
+  .color_marker {border-radius: 15px 0 0 15px}
+  .transition {border-radius: 0 15px 15px 0}
+  #controls * {position: absolute; height: 50%;}/* Add/remove buttons, toggle_repeat and 'go' */
+  #add_button {width: 9%; right: 6%; top: 0;}
+  #go {width: 9%; right: 6%; bottom: 0;}
+  #remove_button {width: 6%; right: 0; top: 0;}
+  #repeat {width: 6%; right: 0; bottom: 0;}
+  #transition_popup {top: -310px}
+}
